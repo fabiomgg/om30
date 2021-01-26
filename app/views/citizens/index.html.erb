@@ -39,6 +39,7 @@
         <td><%= citizen.status %></td>
         <td><%= link_to 'More Info', citizen, remote:true%></td>
         <td><%= link_to 'Edit', edit_citizen_path(citizen), remote: true %></td>
+        <td><%= link_to 'Destroy', citizen, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <tr class="citizen-details" data-id="<%=  citizen.id %>">
        <td style="border: none; padding: 0"></td>

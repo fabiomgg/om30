@@ -56,7 +56,21 @@ class CitizensController < ApplicationController
         format.js { render :edit }
       end
     end
-  end    
+  end
+
+  # DELETE /citizens/1 or /citizens/1.json
+  def destroy
+    @citizen.destroy
+    respond_to do |format|
+      format.html { redirect_to citizens_url, notice: "Citizen was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  def search_form
+    render 'citizens/search/show'
+  end
+    
 
   private
     # Use callbacks to share common setup or constraints between actions.
