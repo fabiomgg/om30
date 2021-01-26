@@ -1,5 +1,7 @@
 class Citizen < ApplicationRecord
   include SmsResource
+  searchkick word_middle: [:full_name, :cpf, :public_place_from_relation]
+
   has_one :address
   accepts_nested_attributes_for :address
   
@@ -21,6 +23,16 @@ class Citizen < ApplicationRecord
   def attributes_for_sms
     super(self.attributes.reject! { |a| a =~ /id|created_at|updated_at|photo/ })
   end
+
+  def search_data
+    attributes.merge(
+      public_place_from_relation: self.public_place_from_relation
+    )
+  end
+    
+  def public_place_from_relation
+    self.address.public_place
+  end    
 
   private
 
