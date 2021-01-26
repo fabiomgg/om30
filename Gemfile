@@ -62,6 +62,8 @@ group :test do
   gem 'chromedriver-helper'
   # Simple one-liner tests for common Rails functionality
   gem 'shoulda-matchers', '~> 4.0'
+  # Keep your Selenium WebDrivers updated automatically
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
