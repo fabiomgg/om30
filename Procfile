@@ -1,0 +1,1 @@
+sidekiq: sidekiq -q mailers -q default
