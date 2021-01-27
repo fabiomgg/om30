@@ -42,6 +42,25 @@ RSpec.describe Citizen, type: :model do
     end
   end
 
+  describe "#notify_citizen" do
+    it "equeue email" do
+      ActiveJob::Base.queue_adapter = :test
+      citizen = create(:citizen)
+      expect {
+        citizen.send(:notify_citizen)
+      }.to have_enqueued_job(ActionMailer::DeliveryJob)
+    end
+    
+    it "enqueue sms" do
+      Rails.stub(env: ActiveSupport::StringInquirer.new("production"))
+      ActiveJob::Base.queue_adapter = :test
+      citizen = create(:citizen)
+      expect {
+        citizen.send(:notify_citizen)
+      }.to have_enqueued_job(SendSmsJob)
+    end
+  end
+
   describe '.search_data' do
     it 'return correct merged attributes' do 
       citizen = create(:citizen)
